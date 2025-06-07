@@ -69,8 +69,7 @@ def notif():
             techacademy()
 
             if see("notif_tactics_complete"):
-                pass
-            tactics()
+                tactics()
                 
             if see("notif_delegation_complete"):
                 do("notif_delegation_complete")
@@ -134,72 +133,63 @@ def techacademy():
     do("notif_techacademy_complete")
     log_info("开始 Techacademy")
     expect("techacademy")
-    is_do_it_last_time = False
-    preferred_digit = 1
-    i = 0
-    do("middle")
+
+    if not see("techacademy_list_is_full", threshold=0.9):
     
-    while True:
-        expect("techacademy_option_entered")
-
-        # selected_index = -1 # or minimum
-        # minimum_time = 13
+        is_do_it_last_time = False
+        preferred_digit = 2
+        i = 0
+        do("middle")
         
-        # for i in range(5):
-            # lower resource, only the first one take new image
-        do("right")
-        sleep(2)
-        take_new_image()
-        set_take_new_image(False)
+        while True:
+            expect("techacademy_option_entered", "middle")
 
-        if see("techacademy_cubic"):
-            continue
-        
-        num = what_number(f"techacademy_time")
+            do("right")
+            sleep(2)
+            take_new_image()
+            set_take_new_image(False)
 
-        if num != preferred_digit:
-            # selected_index = i
-            i += 1
-            if i <= 5:
+            if see("techacademy_cubic"):
                 continue
-            else:
-                preferred_digit += 1
+            
+            num = what_number(f"techacademy_time")
 
-            # if num < minimum_time:
-            #     minimum_time = num
-            #     selected_index = i
+            if see("techacademy_no_requirement"):
+                pass
+            elif num < preferred_digit \
+                or not what_number("techacademy_cost_number", is_compare=True) \
+                or what_number("techacademy_cost_number", is_compare=True, return_digit=1) == -1:
+                # selected_index = i
+                i += 1
+                if i > 5:
+                    i = 1
+                    preferred_digit += 2
+                    if preferred_digit > 12:
+                        preferred_digit = 0
+                    print(f"preferred_digit: {preferred_digit}")
+                continue
 
-        # print(f"Selected project index: {selected_index}")
+            set_take_new_image(True)
+            
+            do("techacademy_confirm_research")
+            slp()
+            # if not expect("general_confirm", max_count=2):
+            #     continue
+            do("general_confirm")
+            slp()
+            do("techacademy_add_to_list")
+            expect("general_confirm")
+            do("general_confirm")
+            
+            if preferred_digit > 2: preferred_digit = 2 # fix if special case
+            preferred_digit = 3 - preferred_digit
+            
+            # if is_do_it_last_time: break
+            # elif see("techacademy_list_is_full"): is_do_it_last_time = True
+            if see("techacademy_list_is_full", threshold=0.9): break   # so if there's only max 5,
+                                    # no need to enter and add the last project
 
-        # check if has enough resource, special case
-        # or if spending rubic's cube, which i want to save
-        if what_number("techacademy_cost_number") == -1 \
-            or what_number("techacademy_cost_number", is_compare=True, return_digit=2) == 3 \
-            or not what_number("techacademy_cost_number", is_compare=True):
-            do("left_middle")
-            preferred_digit += 1
-            continue
-
-        set_take_new_image(True)
-        
-        do("techacademy_confirm_research")
-        slp()
-        expect("general_confirm")
-        do("general_confirm")
-        slp()
-        do("techacademy_add_to_list")
-        expect("general_confirm")
-        do("general_confirm")
-        
-        if preferred_digit > 2: preferred_digit = 2 # fix if special case
-        preferred_digit = 3 - preferred_digit
-        
-        # if is_do_it_last_time: break
-        # elif see("techacademy_list_is_full"): is_do_it_last_time = True
-        if see("techacademy_list_is_full", threshold=0.9): break   # so if there's only max 5,
-                                # no need to enter and add the last project
-
-        slp()
+            slp()
         
     set_take_new_image(True)
     expect("notif", "top_left")
@@ -313,6 +303,8 @@ def build():
             expect("page_entered", "bottom", find_it=True)
             do("build_build")
             do("build_start_building")
+            do("build_add_more")
+            do("build_add_more")
             do("general_confirm")
             break
         
@@ -473,7 +465,8 @@ def auto_everything():
 
 if __name__ == "__main__":
     init()
-    # auto_everything()
-    what_number("stage_ammo_number")
+    auto_everything()
+    # what_number("stage_ammo_number")
+    # build()
     
     pass

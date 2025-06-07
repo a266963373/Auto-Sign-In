@@ -181,7 +181,12 @@ Target(
 
 Target(
     id="techacademy_cost_number",
-    search_region=(1369, 684, 1491, 710)
+    search_region=(1369, 688, 1491, 710)
+)
+
+Target(
+    id="techacademy_no_requirement",
+    search_region=(1591, 784, 1660, 822)
 )
 
 # search_region_list = (
@@ -367,12 +372,18 @@ Target(
 
 Target(
     id="build_list",
-    click_pos=(78, 413)
+    click_pos=(78, 513)
+    # click_pos=(78, 413)
 )
 
 Target(
     id="build_list_batch",
     click_pos=[(1788, 180), (1186, 767)]
+)
+
+Target(
+    id="build_add_more",
+    click_pos=(1154, 410)
 )
 
 Target(

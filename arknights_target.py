@@ -492,3 +492,12 @@ Target(
     id="training_board_enter",
     click_pos=(424, 918),
 )
+
+Target(
+    id="skill_ready",
+)
+
+Target(
+    id="skill_use",
+    click_pos=(1270, 605)
+)

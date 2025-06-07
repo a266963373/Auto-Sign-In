@@ -258,8 +258,9 @@ def spend_energy():
                 sleep(80)
                 set_sleep_duration(20)
                 expect("operation_finish", max_count=30)
-                set_sleep_duration(1)
+                set_sleep_duration(2)
                 expect("terminal_battle_chosen", "top_left")
+                set_sleep_duration(1)
         slp()
     log_success("成功消费能量")
     expect("homepage", "top_left")
@@ -367,9 +368,19 @@ def auto_everything():
     visit_friends()
     spend_credit()
     public_recruit()
-    spend_energy()
+    # spend_energy()
     receive_task_reward()
+
+def auto_use_skill():
+    set_sleep_duration(5)
+    while True:
+        if see("skill_ready", threshold=0.85):
+            do("skill_ready",threshold=0.85, find_it=True, shift=(0, 130))
+            do("skill_use")
+        else:
+            slp()
 
 if __name__ == "__main__":
     init()
     auto_everything()
+    # auto_use_skill()

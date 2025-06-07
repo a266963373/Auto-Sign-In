@@ -17,7 +17,7 @@ def login():
     if not window:
         subprocess.Popen(["start", "steam://run/1973530"], shell=True)
         print("🟢 正在启动《边狱公司》...")
-        time.sleep(10)  # 等待游戏加载
+        time.sleep(14)  # 等待游戏加载
     maximize_and_move("LimbusCompany")
     set_sleep_duration(5)
     do("login")
@@ -72,4 +72,5 @@ if __name__ == "__main__":
     init()
     # maximize_and_move("LimbusCompany")
     # expect("energy", "login")
-    see("homepage")
+    # see("homepage")
+    auto_everything()

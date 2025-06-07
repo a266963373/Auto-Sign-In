@@ -78,8 +78,12 @@ def match_target_in_image(target, threshold=0.95) -> bool:
 def parse_number(s):
     s = s.lower().replace(",", "").strip()
     if s.endswith('k'):
+        if len(s) == 1:
+            return 1000
         return int(float(s[:-1]) * 1000)
     elif s.endswith('m'):
+        if len(s) == 1:
+            return 10000
         return int(float(s[:-1]) * 1_000_000)
     else:
         return int(re.sub(r"[^\d]", "", s))  # 去掉非数字字符
@@ -136,6 +140,8 @@ def extract_digits(target, is_compare=False, no_second_chance=False,
 def read_hanzi(target, candidate_words=None, patch_pair=None):
     while True:
         image = image_of_area(target)
+        # cv2.imshow("e", image)
+        # cv2.waitKey(0)
         text = pytesseract.image_to_string(image, lang="chi_sim")
         text = re.sub(r"\s+", "", text)
         print(f"🈶 识别到的汉字内容：{text}")
