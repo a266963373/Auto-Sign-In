@@ -15,7 +15,8 @@ def init():
 def login():
     log_info("开始登录《蔚蓝档案》")
     set_sleep_duration(3)
-    if not see("homepage"):
+    # if not see("homepage"):
+    while "blue" not in a.get_current_focus_window():
         if expect("blue_archive", max_count=2):
             do("blue_archive", find_it=True)
             log_success("成功点击《蔚蓝档案》")

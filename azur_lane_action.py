@@ -142,44 +142,64 @@ def techacademy():
         do("middle")
         
         while True:
+            set_take_new_image(True)
             expect("techacademy_option_entered", "middle")
 
             do("right")
             sleep(2)
             take_new_image()
             set_take_new_image(False)
-
-            if see("techacademy_cubic"):
-                continue
             
-            num = what_number(f"techacademy_time")
-
-            if see("techacademy_no_requirement"):
-                pass
-            elif num < preferred_digit \
-                or not what_number("techacademy_cost_number", is_compare=True) \
-                or what_number("techacademy_cost_number", is_compare=True, return_digit=1) == -1:
-                # selected_index = i
-                i += 1
-                if i > 5:
-                    i = 1
-                    preferred_digit += 2
-                    if preferred_digit > 12:
-                        preferred_digit = 0
-                    print(f"preferred_digit: {preferred_digit}")
-                continue
-
-            set_take_new_image(True)
+            print(f"preferred digit: {preferred_digit}")
             
-            do("techacademy_confirm_research")
-            slp()
-            # if not expect("general_confirm", max_count=2):
-            #     continue
-            do("general_confirm")
-            slp()
-            do("techacademy_add_to_list")
-            expect("general_confirm")
-            do("general_confirm")
+            if see("techacademy_option_stop"):
+                set_take_new_image(True)
+                do("techacademy_add_to_list")
+                expect("general_confirm", max_count=2)
+                do("general_confirm")
+                
+            else:
+                if see("techacademy_cubic") and preferred_digit < 5:
+                    i += 1
+                    continue
+                
+                num = what_number(f"techacademy_time")
+
+                if see("techacademy_no_requirement") and what_number("techacademy_cost_number") == -1:
+                    print("pass due to one.")
+                    pass
+                elif num > preferred_digit \
+                    or not what_number("techacademy_cost_number", is_compare=True) \
+                    or what_number("techacademy_cost_number", is_compare=True, return_digit=1) == -1:
+                    # selected_index = i
+                    i += 1
+                    if i > 5:
+                        i = 1
+                        preferred_digit += 2
+                        if preferred_digit > 12:
+                            preferred_digit = 0
+                        print(f"preferred_digit: {preferred_digit}")
+                    continue
+
+                set_take_new_image(True)
+                
+                do("techacademy_confirm_research")
+                slp()
+                
+                if see("techacademy_option_stop"):
+                    do("techacademy_add_to_list")
+                    expect("general_confirm", max_count=2)
+                    do("general_confirm")
+                    
+                elif expect("general_confirm", max_count=2):
+                    do("general_confirm")
+                    slp()
+                    do("techacademy_add_to_list")
+                    expect("general_confirm", max_count=2)
+                    do("general_confirm")
+
+                else:
+                    continue
             
             if preferred_digit > 2: preferred_digit = 2 # fix if special case
             preferred_digit = 3 - preferred_digit
@@ -465,7 +485,8 @@ def auto_everything():
 
 if __name__ == "__main__":
     init()
-    auto_everything()
+    # auto_everything()
+    techacademy()
     # what_number("stage_ammo_number")
     # build()
     

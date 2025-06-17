@@ -354,6 +354,11 @@ Target(
 )
 
 Target(
+    id="right",
+    click_pos=(1844, 540)
+)
+
+Target(
     id="operation_start",
     search_region=(1554, 549, 1757, 967)
 )
@@ -414,6 +419,11 @@ Target(
 Target(
     id="public_recruit",
     search_region=(185, 150, 370, 256)
+)
+
+Target(
+    id="public_recruit_ticket_number",
+    search_region=(592, 992, 615, 1027)
 )
 
 for i in range(4):

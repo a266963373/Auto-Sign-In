@@ -180,6 +180,11 @@ Target(
 )
 
 Target(
+    id="techacademy_option_stop",
+    search_region=(478, 831, 751, 932)
+)
+
+Target(
     id="techacademy_cost_number",
     search_region=(1369, 688, 1491, 710)
 )

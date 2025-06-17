@@ -105,7 +105,7 @@ def command(cmd):
 
 if __name__ == "__main__":
     init_if_need()
-    close_foreground_app()
+    # close_foreground_app()
 
 """
 In case of "daemon cannot start"

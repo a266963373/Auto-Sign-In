@@ -259,7 +259,8 @@ def spend_energy():
                 set_sleep_duration(20)
                 expect("operation_finish", max_count=30)
                 set_sleep_duration(2)
-                expect("terminal_battle_chosen", "top_left")
+                # expect("terminal_battle_chosen", "top_left")
+                expect("terminal_battle_chosen", "right")
                 set_sleep_duration(1)
         slp()
     log_success("成功消费能量")
@@ -300,7 +301,9 @@ def public_recruit():
             if not is_in_recruit_page:
                 do(f"start_recruit_{i}")
                 expect("public_recruit_specification")
-
+            if what_number("public_recruit_ticket_number") == 0:
+                break
+            
             occupation_requirements = []
             for j in range(5):
                 res = what_hanzi(f"occupation_requirement_{j}", 
@@ -368,7 +371,7 @@ def auto_everything():
     visit_friends()
     spend_credit()
     public_recruit()
-    # spend_energy()
+    spend_energy()
     receive_task_reward()
 
 def auto_use_skill():

@@ -73,4 +73,6 @@ if __name__ == "__main__":
     # mark_done("limbus company")
     # mark_done("arknights")
     # mark_done("blue archive")
+    print("I am executed!")
     auto_everything()
+    
