@@ -201,6 +201,29 @@ Target(
 )
 
 Target(
+    id="craft_station_enter",
+    name="craft_station_enter",
+    search_region=(480, 377, 1032, 540)
+)
+
+Target(
+    id="craft_station",
+    name="craft_station",
+    search_region=(570, 20, 761, 90)
+)
+
+Target(
+    id="craft_order_board",
+    name="craft_order_board",
+    search_region=(1532, 873, 1845, 1051)
+)
+
+Target(
+    id="use_drone_craft",
+    click_pos=(1833, 811)
+)
+
+Target(
     id="use_drone_help",
     name="use_drone_help",
     search_region=(402, 674, 1716, 795)
@@ -510,4 +533,20 @@ Target(
 Target(
     id="skill_use",
     click_pos=(1270, 605)
+)
+
+Target(
+    id="mail_notif",
+    name="clue_fill_highlight",
+    search_region=(305, 5, 365, 60)
+)
+
+Target(
+    id="mail_enter",
+    click_pos=(295, 57)
+)
+
+Target(
+    id="mail",
+    search_region=(1535, 946, 1895, 1058)
 )

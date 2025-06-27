@@ -17,8 +17,18 @@ def init():
     set_game_reset_hour(16)
     Target.prefix = game_name
     import arknights_target
+    
+def close_ads():
+    count = 0
+    while count < 5:
+        if see("mumu_ads"):
+            do("mumu_ads")  # exit
+        sleep(1)
+        count += 1
 
 def login():
+    # as the first mumu game to launch, close ads
+    # close_ads() #TODO: open it when actually see ads
     log_info("开始登录《明日方舟》")
     set_sleep_duration(3)
     if not see("homepage"):
@@ -40,6 +50,30 @@ def login():
             do("login")
         slp()
     log_success("成功登录《明日方舟》")
+    
+def mail():
+    if is_done_today("mail"): return
+    
+    set_sleep_duration(1)
+    log_info("开始邮箱")
+    expect("homepage")
+    if not see("mail_notif", threshold=0.85): return
+    
+    while True:
+        if see("homepage"):
+            do("mail_enter")
+            expect("mail")
+
+        if see("mail"):
+            do("mail")
+            expect("got_resource")
+            break
+
+        slp()
+        
+    log_success("完成邮箱")
+    mark_done("mail")
+    expect("homepage", "top_left")
 
 def infrastructure():
     """Overseeing range: from homepage to reception. Inside reception 
@@ -164,20 +198,31 @@ def infra_reception():
         # done clue collection!
         expect("infra", "top_left")
 
-def infra_use_drone():
-    while not see("trade_station"):
-        do("trade_station_enter", threshold=0.90, find_it=True)
-        slp()
-    do("reception_open_clue")
-    expect("trade_order_board")
-    use_drone_count = 0
-    while what_number("drone_number") >= 5:
-        do("use_drone_help", find_it=True)
+def infra_use_drone(is_craft=True):
+    if is_craft:
+        while not see("craft_station"):
+            do("craft_station_enter", threshold=0.90, find_it=True)
+            slp()
+        do("reception_open_clue")
+        expect("craft_order_board")
+        
+        do("use_drone_craft")
         do("use_drone_most")
         do("use_drone_confirm")
+    else:
+        while not see("trade_station"):
+            do("trade_station_enter", threshold=0.90, find_it=True)
+            slp()
+        do("reception_open_clue")
         expect("trade_order_board")
-        use_drone_count += 1
-        if use_drone_count > 3: break
+        use_drone_count = 0
+        while what_number("drone_number") >= 5:
+            do("use_drone_help", find_it=True)
+            do("use_drone_most")
+            do("use_drone_confirm")
+            expect("trade_order_board")
+            use_drone_count += 1
+            if use_drone_count > 3: break
     expect("infra", "top_left")
 
 def visit_friends():
@@ -301,16 +346,24 @@ def public_recruit():
             if not is_in_recruit_page:
                 do(f"start_recruit_{i}")
                 expect("public_recruit_specification")
-            if what_number("public_recruit_ticket_number") == 0:
+            if what_number("public_recruit_ticket_number") <= 0:
                 break
             
             occupation_requirements = []
+            double_break_flag = False
+            
             for j in range(5):
                 res = what_hanzi(f"occupation_requirement_{j}", 
                     public_recruit_tags, patch_pair=("高级资深", "高级资深干员"))
+                if res == None:
+                    is_in_recruit_page = False
+                    double_break_flag = True
+                    break
+                    
                 if "资深" not in res:
                     res = res.replace("干员", "")
                 occupation_requirements.append(res)
+            if double_break_flag: continue
 
             special_tag = "支援机械"
             somewhat_special_tag = "资深干员"
@@ -367,6 +420,7 @@ def public_recruit():
 def auto_everything():
     init()
     login()
+    mail()
     infrastructure()
     visit_friends()
     spend_credit()
@@ -386,4 +440,5 @@ def auto_use_skill():
 if __name__ == "__main__":
     init()
     auto_everything()
+    # infrastructure()
     # auto_use_skill()

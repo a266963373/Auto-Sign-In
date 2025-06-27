@@ -4,9 +4,10 @@ import pyautogui as p
 import numpy as np
 import cv2
 import io
+from time import sleep
 
 isUsingAdb = True   # False = use pyautogui
-last_clicked_pos = (0, 0)
+last_clicked_pos = (1, 1)
 
 def click(x, y=None):
     global last_clicked_pos

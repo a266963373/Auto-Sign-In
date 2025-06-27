@@ -377,7 +377,8 @@ Target(
 
 Target(
     id="build_list",
-    click_pos=(78, 513)
+    search_region=(23, 334, 121, 631)
+    # click_pos=(78, 513)
     # click_pos=(78, 413)
 )
 

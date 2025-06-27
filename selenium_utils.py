@@ -7,12 +7,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 
-
         
 # 配置信息
 # target_url = "https://prts.wiki/w/公招计算"
 url_dict = {"arknights" : "https://prts.wiki/w/公招计算", 
-            "genshin" : "https://act.hoyolab.com/ys/event/signin-sea-v3/index.html?act_id=e202102251931481"}
+            "genshin" : "https://act.hoyolab.com/ys/event/signin-sea-v3/index.html?act_id=e202102251931481",
+            "zenless" : "https://act.hoyolab.com/bbs/event/signin/zzz/e202406031448091.html?act_id=e202406031448091"}
+
 driver = None
 
 # 启动 Firefox
@@ -105,18 +106,8 @@ def click_reset_tags():
 # def click_red_point():
 #     click_xpath(f"//div[contains(@class, 'actived-day')]//span[contains(@class, 'red-point')]")
 
-def click_red_point():
-    try:
-        # 等 div 出现
-        WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'actived-day')]//span[contains(@class, 'red-point')]"))
-        )
-        # 再找 div，点div
-        tag_element = driver.find_element(By.XPATH, "//div[contains(@class, 'actived-day')]")
-        driver.execute_script("arguments[0].click();", tag_element)
-        print("🟢 成功点击红点外层div")
-    except Exception as e:
-        print(f"🔴 点击红点外层div失败：{e}")
+def get_driver():
+    return driver
 
 def driver_quit():
     if driver:

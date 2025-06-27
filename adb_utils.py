@@ -97,6 +97,8 @@ def close_foreground_app():
             device.shell(f"am force-stop {package}")
         else:
             print("✔ 已经在主页面，无须关闭当前前台应用")
+            # print(f"🚫 正在关闭主界面：{package}")
+            # device.shell(f"am force-stop {package}")
     else:
         print("⚠️ 未找到当前前台窗口（可能是无焦点、切换中或模拟器 bug）")
 
@@ -105,7 +107,9 @@ def command(cmd):
 
 if __name__ == "__main__":
     init_if_need()
-    # close_foreground_app()
+    print(get_current_focus_window())
+
+    close_foreground_app()
 
 """
 In case of "daemon cannot start"

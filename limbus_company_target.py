@@ -7,8 +7,14 @@ Target(
 
 Target(
     id="homepage",
-    search_region=(940, 640, 1278, 804),
+    search_region=(840, 540, 1378, 904),
     click_pos=(100, 100)
+)
+
+Target(
+    id="update_notif",
+    name="confirm",
+    search_region=(960, 650, 1210, 730),
 )
 
 Target(

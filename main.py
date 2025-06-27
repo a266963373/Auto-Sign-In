@@ -2,6 +2,7 @@ import arknights_action
 import blue_archive_action
 import azur_lane_action
 import genshin_action
+import zenless_action
 import limbus_company_action
 import input_utils
 import action
@@ -43,6 +44,14 @@ def auto_genshin():
         set_game_name_for_task("")
         mark_done("genshin")
         
+def auto_zenless():
+    set_game_name_for_task("")
+    if not is_done_today("zenless", 12):
+        zenless_action.init()
+        zenless_action.login()
+        set_game_name_for_task("")
+        mark_done("zenless")
+        
 def auto_limbus_company():
     set_game_name_for_task("")
     if not is_done_recently("limbus company", 6):
@@ -52,6 +61,8 @@ def auto_limbus_company():
 
 def auto_everything():
     auto_genshin()
+    sleep(10)
+    auto_zenless()
     auto_limbus_company()
 
     if auto_arknights():
@@ -75,4 +86,8 @@ if __name__ == "__main__":
     # mark_done("blue archive")
     print("I am executed!")
     auto_everything()
-    
+    # genshin_action.init()
+    # genshin_action.login()
+    # sleep(10)
+    # zenless_action.init()
+    # zenless_action.login()

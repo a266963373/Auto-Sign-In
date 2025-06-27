@@ -1,6 +1,6 @@
 from action import *
 from task_tracker import *
-import selenium_utils as se
+from selenium_utils import *
 
 def init():
     input_utils.set_is_using_adb(False)
@@ -11,9 +11,24 @@ def init():
     # import limbus_company_target
     
 def login():
-    se.init_if_needed()
-    se.open_url("genshin")
-    se.click_red_point()
+    init_if_needed()
+    open_url("genshin")
+    selenium_receive_daily_rewards()
+    
+def selenium_receive_daily_rewards():
+    driver = get_driver()
+    try:
+        # 等 div 出现
+        WebDriverWait(driver, 20).until(
+            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'actived-day')]//span[contains(@class, 'red-point')]"))
+        )
+        # 再找 div，点div
+        tag_element = driver.find_element(By.XPATH, "//div[contains(@class, 'actived-day')]")
+        driver.execute_script("arguments[0].click();", tag_element)
+        print("🟢 成功点击红点外层div")
+    except Exception as e:
+        print(f"🔴 点击红点外层div失败：{e}")
+
 
 if __name__ == "__main__":
     login()

@@ -317,14 +317,14 @@ def build():
             expect("page_entered")
 
         if see("page_entered"):
-            do("build_list")
+            do("build_list", find_it=True)
             do("build_list_batch")
             slp()
             expect("page_entered", "bottom", find_it=True)
             do("build_build")
             do("build_start_building")
-            do("build_add_more")
-            do("build_add_more")
+            # do("build_add_more")
+            # do("build_add_more")
             do("general_confirm")
             break
         
@@ -476,18 +476,19 @@ def auto_everything():
     init()
     login()
     notif()
+    fleet()
     living_area()
     build()
     dock()
-    fleet()
     practice()
     missions()
 
 if __name__ == "__main__":
     init()
     # auto_everything()
-    techacademy()
+    # techacademy()
     # what_number("stage_ammo_number")
     # build()
+    fleet()
     
     pass

@@ -138,6 +138,7 @@ def extract_digits(target, is_compare=False, no_second_chance=False,
         take_new_image()
     
 def read_hanzi(target, candidate_words=None, patch_pair=None):
+    count = 0
     while True:
         image = image_of_area(target)
         # cv2.imshow("e", image)
@@ -150,6 +151,10 @@ def read_hanzi(target, candidate_words=None, patch_pair=None):
         if patch_pair and patch_pair[0] in text:
             text = patch_pair[1]
             break
+
+        count += 1
+        if count > 5:
+            return None
             
     return text
 
@@ -165,7 +170,7 @@ if __name__ == "__main__":
     input_utils.set_is_using_adb(True)
     # input_utils.set_is_using_adb(False)
     # cv2.imwrite("images/screenshot.png", input_utils.screencap())
-    # cv2.imwrite("images/arknights/screenshot.png", input_utils.screencap())
+    cv2.imwrite("images/arknights/screenshot.png", input_utils.screencap())
     # cv2.imwrite("images/blue archive/screenshot.png", input_utils.screencap())
-    cv2.imwrite("images/azur lane/screenshot.png", input_utils.screencap())
+    # cv2.imwrite("images/azur lane/screenshot.png", input_utils.screencap())
     

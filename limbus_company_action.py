@@ -18,12 +18,21 @@ def login():
         subprocess.Popen(["start", "steam://run/1973530"], shell=True)
         print("🟢 正在启动《边狱公司》...")
         time.sleep(14)  # 等待游戏加载
+    elif see("homepage"): return
     maximize_and_move("LimbusCompany")
     set_sleep_duration(5)
     do("login")
     time.sleep(10)
     set_sleep_duration(1)
-    expect("homepage", "homepage")
+    while not see("homepage"):
+        if see("update_notif"):
+            do("update_notif")
+            set_sleep_duration(10)
+            expect("homepage", "homepage")
+            break            
+        do("homepage")
+        slp()
+    set_sleep_duration(1)
     slp()
     expect("homepage", "homepage")
     
@@ -72,5 +81,5 @@ if __name__ == "__main__":
     init()
     # maximize_and_move("LimbusCompany")
     # expect("energy", "login")
-    # see("homepage")
-    auto_everything()
+    see("homepage")
+    # auto_everything()

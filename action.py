@@ -3,6 +3,7 @@ from image_utils import *
 from input_utils import *
 from time import sleep
 from operator import add
+import winsound
 
 sleep_duration = 1
 cur_id = None        # record current id so no need to expect a scene every time
@@ -56,7 +57,7 @@ def do(target_id, threshold=0.95, find_it=False, shift=None):
     sleep(0.5)
     print("Doing:", target.id)
 
-def expect(until_target_id, click_target_id=None, max_count=10, threshold=0.95, 
+def expect(until_target_id, click_target_id=None, max_count=13, threshold=0.95, 
            find_it=False, to_disappear=False, in_hurry=False):
     """Click target A repeatedly until we see target B.
     Update cur_id afterwards.
@@ -82,6 +83,10 @@ def expect(until_target_id, click_target_id=None, max_count=10, threshold=0.95,
         count += 1
         if count >= max_count:
             print(f"Stop expecting {until_target_id}.")
+            if max_count == 13:
+                print("Script is wrong. Exiting.")
+                winsound.Beep(1000, 500)
+                exit()
             return None
         
         if click_target_id: 
@@ -89,7 +94,7 @@ def expect(until_target_id, click_target_id=None, max_count=10, threshold=0.95,
                 target_click(click_target)
                 target_click(click_target)
             target_click(click_target)
-        elif count % 2 == 0: click_last_clicked_pos()   # if loading caused missing input
+        elif count > 0 and count % 2 == 0: click_last_clicked_pos()   # if loading caused missing input
 
         print(f"Expecting: {until_target_id}, {count}", end="\r")
         slp()
