@@ -84,6 +84,36 @@ def is_done_today(task_id: str, reset_hour: int = -1) -> bool:
 
     return done_time >= today_reset
 
+from datetime import datetime, timedelta
+
+def is_done_this_week(task_id: str, reset_hour: int = -1) -> bool:
+    if reset_hour == -1:
+        reset_hour = game_reset_hour  # 例如 4 表示凌晨 4 点重置
+
+    data = _load_log()
+    key = game_name + ":" + task_id
+    ts_str = data.get(key)
+    if not ts_str:
+        return False
+
+    try:
+        done_time = datetime.strptime(ts_str, "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        return False
+
+    now = datetime.now()
+
+    # 本周一的重置点（如果当前时间还没到本周一的 reset_hour，则往前推一周）
+    weekday = now.weekday()  # 周一是 0，周日是 6
+    monday_reset = now - timedelta(days=weekday)
+    monday_reset = monday_reset.replace(hour=reset_hour, minute=0, second=0, microsecond=0)
+
+    if now < monday_reset:
+        # 说明当前仍属于上周的周期，需要再往前推一周
+        monday_reset -= timedelta(days=7)
+
+    return done_time >= monday_reset
+
 def get_pending_tasks(task_ids, within_hours=8):
     """返回最近未完成的任务列表"""
     return [tid for tid in task_ids if not is_done_recently(tid, hours=within_hours)]

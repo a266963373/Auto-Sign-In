@@ -550,3 +550,48 @@ Target(
     id="mail",
     search_region=(1535, 946, 1895, 1058)
 )
+
+Target(
+    id="normal_affairs",
+    search_region=(1029, 924, 1227, 1074)
+)
+
+Target(
+    id="middle_middle",
+    click_pos=(960, 510)
+)
+
+Target(
+    id="normal_affairs_switch",
+    search_region=(1621, 982, 1761, 1055)
+)
+
+Target(
+    id="normal_affairs_specific_battle",
+    search_region=(1066, 37, 1698, 1067)
+)
+
+Target(
+    id="normal_affairs_orundum_number",
+    search_region=(155, 957, 324, 1018)
+)
+
+Target(
+    id="normal_affairs_prts",
+    search_region=(1469, 848, 1576, 926)
+)
+
+Target(
+    id="operation_start_enter",
+    search_region=(1671, 926, 1877, 1015)
+)
+
+Target(
+    id="resource",
+    search_region=(709, 945, 879, 1057)
+)
+
+Target(
+    id="resource_exp_battle",
+    search_region=(1433, 200, 1702, 311)
+)

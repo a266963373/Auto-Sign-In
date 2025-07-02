@@ -277,13 +277,7 @@ def spend_credit():
     do("homepage_enter")
     expect("homepage")
 
-def spend_energy():
-    if see("homepage"):
-        do("terminal_enter")
-        expect("terminal")
-        do("terminal_last_battle")
-        expect("terminal_battle_chosen")
-        
+def battle_till_the_end():
     battle_times = 1
     while battle_times > 0:
         if see("terminal_battle_chosen"):
@@ -308,7 +302,67 @@ def spend_energy():
                 expect("terminal_battle_chosen", "right")
                 set_sleep_duration(1)
         slp()
-    log_success("成功消费能量")
+    
+def spend_energy_on_last_battle():
+    do("terminal_last_battle")
+    expect("terminal_battle_chosen")
+    battle_till_the_end()
+        
+def spend_energy_on_earn_orundum():
+    do("normal_affairs")
+    expect("normal_affairs")
+    expect("normal_affairs_switch", "middle_middle")
+    do("normal_affairs_switch")
+    expect("normal_affairs_specific_battle")
+    do("normal_affairs_specific_battle", find_it=True)
+    expect("operation_start_enter")
+
+    while what_number("current_energy") > what_number("energy_per_battle"):
+        if what_number("normal_affairs_orundum_number") >= 1800:
+            mark_done("earn_orundum")
+            return
+        
+        if not see("normal_affairs_prts"):
+            return
+        
+        do("bottom_right")
+        slp()
+        do("bottom_right")
+        sleep(3)
+        do("bottom_right")
+        expect("operation_start_enter", find_it=True)
+
+def spend_energy_on_earn_resource():
+    do("resource")
+    expect("resource")
+    do("middle_middle")
+    expect("resource_exp_battle")
+    do("resource_exp_battle")
+    expect("operation_start_enter")
+    battle_till_the_end()
+    
+def spend_energy():
+    log_info("Start spending energy.")
+    is_do_last_battle = False
+    
+    while True:
+        if see("homepage"):
+            do("terminal_enter")
+            expect("terminal")
+            
+            if not is_done_this_week("earn_orundum"):
+                spend_energy_on_earn_orundum()
+                expect("normal_affairs", "top_left")
+
+            if is_do_last_battle:
+                spend_energy_on_last_battle()
+            else:
+                spend_energy_on_earn_resource()
+            break
+
+        slp()
+            
+    log_success("Finished spending energy")
     expect("homepage", "top_left")
 
 def receive_task_reward():
@@ -439,6 +493,8 @@ def auto_use_skill():
 
 if __name__ == "__main__":
     init()
-    auto_everything()
+    # auto_everything()
+    spend_energy()
+
     # infrastructure()
     # auto_use_skill()
