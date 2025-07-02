@@ -170,7 +170,7 @@ if __name__ == "__main__":
     input_utils.set_is_using_adb(True)
     # input_utils.set_is_using_adb(False)
     # cv2.imwrite("images/screenshot.png", input_utils.screencap())
-    cv2.imwrite("images/arknights/screenshot.png", input_utils.screencap())
-    # cv2.imwrite("images/blue archive/screenshot.png", input_utils.screencap())
+    # cv2.imwrite("images/arknights/screenshot.png", input_utils.screencap())
+    cv2.imwrite("images/blue archive/screenshot.png", input_utils.screencap())
     # cv2.imwrite("images/azur lane/screenshot.png", input_utils.screencap())
     

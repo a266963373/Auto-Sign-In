@@ -77,11 +77,13 @@ Target(
 
 Target(
     id="cafe_earnings",
+    search_region=(783, 162, 1150, 284),
     click_pos=(1725, 973)
 )
 
 Target(
     id="cafe_earnings_claim",
+    search_region=(779, 712, 1149, 866),
     click_pos=(961, 792)
 )
 
@@ -295,4 +297,9 @@ Target(
 Target(
     id="login_update",
     search_region=(400, 600, 1600, 900)
+)
+
+Target(
+    id="mail_enter",
+    click_pos=(1720, 58)
 )

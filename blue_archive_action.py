@@ -49,6 +49,24 @@ def login():
     set_sleep_duration(1)
     return 0
     
+def mail():
+    if is_done_today("mail"): return
+    log_info("Start mail.")
+    set_sleep_duration(1)
+    expect("homepage")
+    
+    while True:
+        if see("homepage"):
+            do("mail_enter")
+            expect("homepage", to_disappear=True)
+            do("bottom_right", shift=(-100, 0))
+            break
+        slp()
+
+    log_success("Finished mail.")
+    mark_done("mail")
+    expect("homepage", "top_left")
+    
 def cafe():
     log_info("开始 cafe")
     set_sleep_duration(1)
@@ -58,7 +76,8 @@ def cafe():
         if see("homepage"):
             do("cafe_enter")
             sleep(3)
-            expect("cafe")
+            expect("homepage", to_disappear=True)
+            expect("cafe", "left_middle")
             while True:
                 if see("cafe_visiting_student_confirm"):
                     do("cafe_visiting_student_confirm") # it's actually "exit"
@@ -84,9 +103,11 @@ def cafe():
             
         if not is_done_today("cafe_earnings", 20):
             do("cafe_earnings")
+            expect("cafe_earnings")
             do("cafe_earnings_claim")
+            expect("cafe_earnings_claim")
             mark_done("cafe_earnings")
-            expect("cafe", "bottom")
+            expect("cafe_earnings", "bottom", to_disappear=True)
         
         if is_cafe_entered:
             expect("homepage", "top_left")
@@ -284,6 +305,7 @@ def auto_everything():
     if login() == -1:
         return -1
     
+    mail()
     cafe()
     lesson()
     tasks()
@@ -295,6 +317,7 @@ if __name__ == "__main__":
     init()
 
     auto_everything()
+
     # tasks()
     # cafe()
     # social()

@@ -17,7 +17,7 @@ def init_if_need():
             print("Emulator is open.")
             break
     else:
-        print("Emulator is not open. Opening.")    
+        print("Emulator is not open. Opening.")
         subprocess.Popen(emulator_path)
         is_just_opened = True
 
@@ -53,6 +53,11 @@ def init_if_need():
         #     print(device)
     else:
         print("No devices connected")
+        
+    if is_just_opened:
+        print("Closing mumu main page to close potential ads.")
+        close_foreground_app(True)
+        sleep(5)
 
 def click(x, y):
     device.shell(f"input tap {x} {y}")
@@ -89,16 +94,18 @@ def get_current_focus_window():
                 return match.group(1)
     return None
 
-def close_foreground_app():
+def close_foreground_app(close_mumu=False):
     package = get_current_focus_window()
     if package:
         if "mumu" not in package:
             print(f"🚫 正在关闭前台应用：{package}")
             device.shell(f"am force-stop {package}")
         else:
-            print("✔ 已经在主页面，无须关闭当前前台应用")
-            # print(f"🚫 正在关闭主界面：{package}")
-            # device.shell(f"am force-stop {package}")
+            if close_mumu:
+                print(f"🚫 正在关闭主界面：{package}")
+                device.shell(f"am force-stop {package}")
+            else:
+                print("✔ 已经在主页面，无须关闭当前前台应用")
     else:
         print("⚠️ 未找到当前前台窗口（可能是无焦点、切换中或模拟器 bug）")
 

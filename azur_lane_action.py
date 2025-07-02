@@ -297,7 +297,7 @@ def dock():
         sleep(0.5)
         if see("ship_enhance_result_confirm"):
             do("ship_enhance_result_confirm")
-            expect("page_entered", "bottom")
+            expect("page_entered")
         else:
             # quit if continuous 2 ships cannot be upgraded
             if is_quit_next_time: break
@@ -485,10 +485,13 @@ def auto_everything():
 
 if __name__ == "__main__":
     init()
-    # auto_everything()
+    auto_everything()
     # techacademy()
     # what_number("stage_ammo_number")
     # build()
-    fleet()
+    # fleet()
+    # dock()
+    
     
     pass
+# 

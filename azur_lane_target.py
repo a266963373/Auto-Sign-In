@@ -366,7 +366,8 @@ Target(
 Target(
     id="ship_enhance_result_confirm",
     name="general_confirm",
-    search_region=(1304, 771, 1564, 865),
+    search_region=(1064, 771, 1564, 914),
+    # search_region=(1304, 771, 1564, 865),
     click_pos=[(1438, 814), (1213, 856)]
 )
 
