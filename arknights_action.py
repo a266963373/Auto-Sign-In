@@ -106,8 +106,6 @@ def infrastructure():
             while True:
                 if see("clue_collection"):
                     # reception dealing
-                    do("reception_enter")
-                    expect("reception")
                     infra_reception()
                     flag_clue_done = True
                     break
@@ -116,6 +114,9 @@ def infrastructure():
                     expect("training")
                     do("training_board_enter")
                     expect("infra_pending_tasks", "top_left")
+                elif see("infra_notif_trust"):
+                    infra_control()
+
                 elif see("infra"):
                     flag_clue_done = True
                     break
@@ -135,6 +136,8 @@ def infrastructure():
 
 def infra_reception():
     set_sleep_duration(1)
+    do("reception_enter")
+    expect("reception")
     
     while True: # experimental add
         if see("reception"):
@@ -197,6 +200,17 @@ def infra_reception():
 
         # done clue collection!
         expect("infra", "top_left")
+
+def infra_control():
+    do("control_enter")
+    expect("control_assistant_enter")
+    do("control_assistant_enter")
+    expect("control_assistant")
+    do("control_assistant_operator")
+    expect("operators_list_confirm")
+    do("operators_list_second_operator")
+    do("operators_list_confirm")
+    expect("infra_pending_tasks", "top_left")
 
 def infra_use_drone(is_craft=True):
     if is_craft:

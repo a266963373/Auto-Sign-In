@@ -29,7 +29,6 @@ Target(
 
 Target(
     id="infra_notif",
-    name="infra_notif",
     search_region=(1759, 103, 1860, 278),
 )
 
@@ -524,6 +523,46 @@ Target(
 Target(
     id="training_board_enter",
     click_pos=(424, 918),
+)
+
+Target(
+    id="infra_notif_trust",
+    search_region=(227, 980, 444, 1072),
+)
+
+Target(
+    id="control_enter",
+    click_pos=(1141, 316)
+)
+
+Target(
+    id="control_enter",
+    click_pos=(1141, 316)
+)
+
+Target(
+    id="control_assistant_enter",
+    search_region=(14, 536, 192, 709)
+)
+
+Target(
+    id="control_assistant",
+    search_region=(751, 159, 1227, 312),
+)
+
+Target(
+    id="control_assistant_operator",
+    click_pos=(635, 363)
+)
+
+Target(
+    id="operators_list_confirm",
+    search_region=(1454, 967, 1644, 1067)
+)
+
+Target(
+    id="operators_list_second_operator",
+    click_pos=(666, 734)
 )
 
 Target(
