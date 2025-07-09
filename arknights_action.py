@@ -385,7 +385,7 @@ def receive_task_reward():
     expect("daily_task")
     do("receive_all_task_reward")
     # expect("got_resource")
-    expect("weekly_task", "weekly_task")
+    expect("weekly_task", "weekly_task", threshold=0.9)
     do("receive_all_task_reward")
     expect("homepage", "top_left")
 
@@ -414,7 +414,8 @@ def public_recruit():
             if not is_in_recruit_page:
                 do(f"start_recruit_{i}")
                 expect("public_recruit_specification")
-            if what_number("public_recruit_ticket_number") <= 0:
+            if what_number("public_recruit_ticket_number") <= 0 \
+                and not see("refresh_tags"):
                 break
             
             occupation_requirements = []
@@ -508,7 +509,9 @@ def auto_use_skill():
 if __name__ == "__main__":
     init()
     # auto_everything()
-    spend_energy()
+    # spend_energy()
+    receive_task_reward()
+    # see("weekly_task")
 
     # infrastructure()
     # auto_use_skill()

@@ -10,6 +10,8 @@ from image_utils import set_game_name_for_image
 from task_tracker import *
 from selenium_utils import driver_quit
 from time import sleep
+import os
+import winsound
 
 def auto_arknights():
     set_game_name_for_task("")
@@ -43,6 +45,8 @@ def auto_genshin():
         genshin_action.login()
         set_game_name_for_task("")
         mark_done("genshin")
+        return 0
+    return -1
         
 def auto_zenless():
     set_game_name_for_task("")
@@ -51,6 +55,8 @@ def auto_zenless():
         zenless_action.login()
         set_game_name_for_task("")
         mark_done("zenless")
+        return 0
+    return -1
         
 def auto_limbus_company():
     set_game_name_for_task("")
@@ -60,8 +66,8 @@ def auto_limbus_company():
         mark_done("limbus company")
 
 def auto_everything():
-    auto_genshin()
-    sleep(10)
+    if auto_genshin() == 0:
+        sleep(10)
     auto_zenless()
     auto_limbus_company()
 
@@ -69,6 +75,7 @@ def auto_everything():
         input_utils.close_foreground_app()
         action.reset_init()
         sleep(1)
+        driver_quit()
         
     if auto_blue_archive():
         input_utils.close_foreground_app()
@@ -77,15 +84,24 @@ def auto_everything():
         
     auto_azur_lane()
     
-    driver_quit()
+    auto_everything_completed()
+    
+def auto_everything_completed():
+    mumu_quit()
 
+def mumu_quit():
+    os.system('taskkill /f /im MuMuPlayer.exe')
+    winsound.Beep(600, 500)
+    winsound.Beep(400, 500)
+    winsound.Beep(200, 500)
 
 if __name__ == "__main__":
     # mark_done("limbus company")
     # mark_done("arknights")
     # mark_done("blue archive")
     print("I am executed!")
-    auto_everything()
+    # auto_everything()
+    mumu_quit()
     # genshin_action.init()
     # genshin_action.login()
     # sleep(10)

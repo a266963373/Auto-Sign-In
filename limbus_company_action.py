@@ -64,8 +64,17 @@ def maximize_and_move(window_title, screen=1):
 def convert_energy():
     expect("energy", "login")
     do("energy")
+    expect("max_energy_conversion")
     do("max_energy_conversion")
     do("confirm")
+    
+def mail():
+    expect("homepage")
+    if see("mail_notif"):
+        do("mail_notif")
+        expect("mail_claim_all")
+        do("mail_claim_all")
+        do("mail_close")
     
 def exit_game():
     os.system('taskkill /F /IM LimbusCompany.exe')
@@ -74,6 +83,7 @@ def exit_game():
 def auto_everything():
     init()
     login()
+    mail()
     convert_energy()
     exit_game()
 

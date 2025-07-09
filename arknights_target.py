@@ -407,7 +407,7 @@ Target(
 
 Target(
     id="daily_task",
-    search_region=(670, 16, 974, 112)
+    search_region=(660, 10, 1000, 130)
 )
 
 Target(
@@ -417,7 +417,7 @@ Target(
 
 Target(
     id="weekly_task",
-    search_region=(1084, 16, 1379, 112)
+    search_region=(1056, 10, 1400, 130)
 )
 
 Target(

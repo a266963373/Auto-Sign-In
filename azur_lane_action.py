@@ -65,7 +65,7 @@ def notif():
             if see("notif_techacademy_complete"):
                 do("notif_techacademy_complete")
                 slp()
-                expect("notif", "notif_enter")
+                expect("notif", "notif_enter", in_hurry=True)
             techacademy()
 
             if see("notif_tactics_complete"):
@@ -73,7 +73,7 @@ def notif():
                 
             if see("notif_delegation_complete"):
                 do("notif_delegation_complete")
-                expect("notif", "notif_enter")
+                expect("notif", "notif_enter", in_hurry=True)
             delegation()
             
             break
@@ -492,6 +492,4 @@ if __name__ == "__main__":
     # fleet()
     # dock()
     
-    
     pass
-# 

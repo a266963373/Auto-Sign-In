@@ -24,10 +24,25 @@ Target(
 
 Target(
     id="max_energy_conversion",
-    click_pos=(1170, 510)
+    search_region=(1128, 466, 1204, 545)
 )
 
 Target(
     id="confirm",
     click_pos=(1100, 811)
+)
+
+Target(
+    id="mail_notif",
+    search_region=(1448, 132, 1583, 267)
+)
+
+Target(
+    id="mail_claim_all",
+    search_region=(1268, 792, 1550, 872)
+)
+
+Target(
+    id="mail_close",
+    click_pos=(1119, 829)
 )
