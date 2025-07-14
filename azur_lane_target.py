@@ -469,7 +469,6 @@ Target(
 
 Target(
     id="battle_lose",
-    search_region=(213, 877, 780, 1010)
 )
 
 Target(
@@ -522,4 +521,19 @@ Target(
 Target(
     id="stage_ammo_number",
     search_region=(927, 338, 947, 371)
+)
+
+Target(
+    id="mail_enter",
+    click_pos=(1582, 55)
+)
+
+Target(
+    id="mail_manage",
+    search_region=(535, 935, 815, 1015)
+)
+
+Target(
+    id="mail_receive",
+    search_region=(844, 756, 1075, 857)
 )

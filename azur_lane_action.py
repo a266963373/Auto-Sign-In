@@ -43,6 +43,28 @@ def login():
         slp()
     log_success("成功看见 homepage")
     
+def mail():
+    if is_done_today("mail"): return
+    
+    log_info("开始 mail")
+    set_sleep_duration(1)
+
+    while True:
+        if see("homepage"):
+            do("mail_enter")
+            expect("mail_manage")
+            do("mail_manage")
+            expect("mail_receive")
+            do("mail_receive")
+            slp()
+            do("general_confirm")
+            break
+        slp()
+        
+    log_success("成功 mail")
+    mark_done("mail")
+    expect("homepage", "top_left")
+    
 def notif():
     log_info("开始 notif")
     set_sleep_duration(1)
@@ -475,6 +497,7 @@ def play_stage():
 def auto_everything():
     init()
     login()
+    mail()
     notif()
     fleet()
     living_area()
@@ -485,7 +508,8 @@ def auto_everything():
 
 if __name__ == "__main__":
     init()
-    auto_everything()
+    # auto_everything()
+    mail()
     # techacademy()
     # what_number("stage_ammo_number")
     # build()

@@ -55,7 +55,7 @@ def do(target_id, threshold=0.95, find_it=False, shift=None):
     if shift: match_pos = tuple(map(add, match_pos, shift))
     click(match_pos)
     sleep(0.5)
-    print("Doing:", target.id)
+    print("Doing:", target.id, match_pos)
 
 def expect(until_target_id, click_target_id=None, max_count=13, threshold=0.95, 
            find_it=False, to_disappear=False, in_hurry=False):

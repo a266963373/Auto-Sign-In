@@ -116,6 +116,8 @@ def infrastructure():
                     expect("infra_pending_tasks", "top_left")
                 elif see("infra_notif_trust"):
                     infra_control()
+                elif see("infra_notif_credit"):
+                    infra_credit()
 
                 elif see("infra"):
                     flag_clue_done = True
@@ -201,12 +203,23 @@ def infra_reception():
         # done clue collection!
         expect("infra", "top_left")
 
+def infra_credit():
+    do("reception_enter")
+    expect("reception")
+    slp()
+    do("reception_credit_board_enter")
+    expect("access_records")
+    do("access_records")
+    expect("reception_receive_credit")
+    do("reception_receive_credit")
+    expect("infra", "top_left")
+
 def infra_control():
     do("control_enter")
     expect("control_assistant_enter")
     do("control_assistant_enter")
     expect("control_assistant")
-    do("control_assistant_operator")
+    do("control_assistant_operator", find_it=True, shift=(-100, 100))
     expect("operators_list_confirm")
     do("operators_list_second_operator")
     do("operators_list_confirm")
@@ -508,10 +521,4 @@ def auto_use_skill():
 
 if __name__ == "__main__":
     init()
-    # auto_everything()
-    # spend_energy()
-    receive_task_reward()
-    # see("weekly_task")
-
-    # infrastructure()
-    # auto_use_skill()
+    auto_everything()

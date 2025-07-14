@@ -552,7 +552,7 @@ Target(
 
 Target(
     id="control_assistant_operator",
-    click_pos=(635, 363)
+    name="control_assistant_highlight",
 )
 
 Target(
@@ -563,6 +563,26 @@ Target(
 Target(
     id="operators_list_second_operator",
     click_pos=(666, 734)
+)
+
+Target(
+    id="infra_notif_credit",
+    search_region=(227, 980, 444, 1072),
+)
+
+Target(
+    id="reception_credit_board_enter",
+    click_pos=(1567, 332)
+)
+
+Target(
+    id="access_records",
+    search_region=(821, 155, 1111, 388),
+)
+
+Target(
+    id="reception_receive_credit",
+    search_region=(1641, 856, 1828, 932),
 )
 
 Target(
